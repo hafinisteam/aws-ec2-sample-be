@@ -15,7 +15,7 @@ const connection = new DataSource({
   type: 'postgres',
   host: 'localhost',
   port: 5432,
-  username: 'postgres',
+  username: 'steam',
   password: 'password',
   database: 'postgres',
   entities: [User],
