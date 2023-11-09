@@ -30,13 +30,13 @@ connection
   .catch((error) => console.log('TypeORM connection error: ', error))
 
 // User API routes
-app.get('/users', async (req, res) => {
+app.get('/api/users', async (req, res) => {
   const userRepository = connection.getRepository(User)
   const users = await userRepository.find()
   res.json(users)
 })
 
-app.post('/users', async (req, res) => {
+app.post('/api/users', async (req, res) => {
   const { username } = req.body
   const userRepository = connection.getRepository(User)
   const user = new User()
@@ -45,7 +45,7 @@ app.post('/users', async (req, res) => {
   res.json(user)
 })
 
-app.delete('/users/:id', async (req, res) => {
+app.delete('/api/users/:id', async (req, res) => {
   const { id } = req.params
   const userRepository = connection.getRepository(User)
   const user = await userRepository.findOne({ where: { id } })
