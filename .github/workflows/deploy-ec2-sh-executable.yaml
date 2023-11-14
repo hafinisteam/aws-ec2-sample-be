@@ -1,0 +1,27 @@
+name: Deploy EC2 
+
+on: 
+  push:
+    branches:
+      - ec2-sh-executable
+
+jobs:
+  deploy:
+    name: Deploy to EC2 with executable SH
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Checkout code and SSH into instance and run script
+        env:
+          PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+        
+        run: |
+          echo "PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
+          cd /apps/ec2-app
+          ./deploy-be.sh
+
+
+
