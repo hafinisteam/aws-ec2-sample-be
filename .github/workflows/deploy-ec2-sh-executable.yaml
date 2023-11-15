@@ -1,9 +1,9 @@
-name: Deploy EC2 
+name: Deploy AWS EC2 
 
 on: 
   push:
     branches:
-      - ec2-sh-executable
+      - main
 
 jobs:
   deploy:
@@ -14,14 +14,13 @@ jobs:
       - name: Checkout code and SSH into instance and run script
         env:
           PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
-          SERVER_HOST: ${{ secrets.SERVER_HOST }}
-        
+          USER_NAME: ${{ secrets.SERVER_USERNAME }}
+          HOSTNAME: ${{ secrets.SERVER_HOST }}
         run: |
-          echo "PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
-          cd /apps/ec2-app
-          ./deploy-be.sh
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
 
-
-
+              # Now we have got the access of EC2 and we will start the deploy .
+              cd /home/ubuntu/apps/ec2-app/
+              ./deploy-be.sh
+              '
