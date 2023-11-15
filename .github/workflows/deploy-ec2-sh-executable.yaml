@@ -1,9 +1,9 @@
-name: Deploy EC2 
+name: Deploy AWS EC2 
 
 on: 
   push:
     branches:
-      - ec2-sh-executable
+      - main
 
 jobs:
   deploy:
@@ -24,6 +24,3 @@ jobs:
               cd /home/ubuntu/apps/ec2-app/
               ./deploy-be.sh
               '
-
-
-
