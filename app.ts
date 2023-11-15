@@ -54,5 +54,5 @@ app.delete('/api/users/:id', async (req, res) => {
 })
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+  console.log(`Server running on port ${PORT}, with AWS EC2 and automatic deployment`)
 })
